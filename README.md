@@ -27,7 +27,8 @@
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Dependencies
-- npm i class-validator class transformer
+- npm i class-validator class-transformer
+- npm i @nestjs/mapped-types 
 
 ## Validation
 - DTO -> Data Transfer Object
