@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import { CreateBookDTO } from './dto/create-book.dto';
 
 @Controller('books')
 export class BookController {
@@ -13,8 +14,8 @@ export class BookController {
   }
 
   @Post()
-  async create(@Body() body) {
-    return { body };
+  async create(@Body() { image, isbn, name, price }: CreateBookDTO) {
+    return { image, isbn, name, price };
   }
 
   @Put(':id')
