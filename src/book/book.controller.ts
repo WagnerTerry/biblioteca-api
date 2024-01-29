@@ -1,5 +1,14 @@
-import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CreateBookDTO } from './dto/create-book.dto';
+import { UpdateBookDTO } from './dto/update-book.dto';
 
 @Controller('books')
 export class BookController {
@@ -18,13 +27,11 @@ export class BookController {
     return { image, isbn, name, price };
   }
 
-  @Put(':id')
-  async update(@Body() body, @Param() params) {
-    return { body, params };
-  }
-
   @Patch(':id')
-  async updatePartial(@Body() body, @Param() params) {
-    return { body, params };
+  async updatePartial(
+    @Body() { image, isbn, name, price }: UpdateBookDTO,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return { isbn, image, name, price, id };
   }
 }
