@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -33,5 +34,10 @@ export class BookController {
     @Param('id', ParseIntPipe) id: number,
   ) {
     return { isbn, image, name, price, id };
+  }
+
+  @Delete(':id')
+  async deleteBook(@Param('id', ParseIntPipe) id: number) {
+    return { id };
   }
 }
