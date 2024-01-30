@@ -16,10 +16,7 @@ export class BookService {
   }
 
   async create(book: Book): Promise<Book> {
-    console.log('book', book);
-    const newBook = new this.bookModel(book); // Cria um novo documento Mongoose com os dados recebidos
-    const response = await newBook.save();
-    console.log('cre', response);
+    const response = await this.bookModel.create(book);
     return response;
   }
 }

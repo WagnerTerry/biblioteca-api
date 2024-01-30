@@ -31,7 +31,6 @@ export class BookController {
     @Body()
     book: CreateBookDTO,
   ): Promise<Book> {
-    console.log('Book object received:', book);
     return this.bookService.create(book);
   }
 

@@ -18,8 +18,8 @@ export class Book {
   isbn?: string;
   @Prop()
   price: number;
-  @Prop()
-  category?: Category;
+  @Prop({ type: String, enum: Object.values(Category) })
+  category: Category;
 }
 
 export const BookSchema = SchemaFactory.createForClass(Book);

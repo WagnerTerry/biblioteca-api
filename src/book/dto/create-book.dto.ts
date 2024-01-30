@@ -17,6 +17,5 @@ export class CreateBookDTO {
   price: number;
 
   @IsString()
-  @IsOptional()
-  category?: Category;
+  category: Category;
 }
