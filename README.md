@@ -29,6 +29,9 @@
 ## Dependencies
 - npm i class-validator class-transformer
 - npm i @nestjs/mapped-types 
+<!-- - npm i --save @nestjs/mongoose mongoose -->
+- npm i mongoose @nestjs/mongoose @nestjs/config --save 
+
 
 ## Validation
 - DTO -> Data Transfer Object

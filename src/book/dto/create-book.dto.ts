@@ -1,8 +1,9 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { Category } from '../schemas/book.schema';
 
 export class CreateBookDTO {
   @IsString()
-  name: string;
+  title: string;
 
   @IsString()
   @IsOptional()
@@ -14,4 +15,8 @@ export class CreateBookDTO {
 
   @IsNumber()
   price: number;
+
+  @IsString()
+  @IsOptional()
+  category?: Category;
 }

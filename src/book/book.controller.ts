@@ -10,12 +10,15 @@ import {
 } from '@nestjs/common';
 import { CreateBookDTO } from './dto/create-book.dto';
 import { UpdateBookDTO } from './dto/update-book.dto';
-
+import { BookService } from './book.service';
+import { Book } from './schemas/book.schema';
 @Controller('books')
 export class BookController {
+  constructor(private bookService: BookService) {}
+
   @Get()
-  async showBooks() {
-    return { books: [] };
+  async getAllBooks(): Promise<Book[]> {
+    return this.bookService.findAll();
   }
 
   @Get(':id')
@@ -24,16 +27,20 @@ export class BookController {
   }
 
   @Post()
-  async create(@Body() { image, isbn, name, price }: CreateBookDTO) {
-    return { image, isbn, name, price };
+  async createBook(
+    @Body()
+    book: CreateBookDTO,
+  ): Promise<Book> {
+    console.log('Book object received:', book);
+    return this.bookService.create(book);
   }
 
   @Patch(':id')
   async updatePartial(
-    @Body() { image, isbn, name, price }: UpdateBookDTO,
+    @Body() { image, isbn, title, category, price }: UpdateBookDTO,
     @Param('id', ParseIntPipe) id: number,
   ) {
-    return { isbn, image, name, price, id };
+    return { isbn, image, title, category, price, id };
   }
 
   @Delete(':id')
