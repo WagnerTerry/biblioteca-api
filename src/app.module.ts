@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { BookModule } from './book/book.module';
 import { HealthModule } from './health/health.module';
 import { UserModule } from './user/user.module';
-import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
@@ -15,7 +14,6 @@ import { MongooseModule } from '@nestjs/mongoose';
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.DB_URI),
-    DatabaseModule,
     BookModule,
     UserModule,
     HealthModule,
