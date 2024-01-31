@@ -30,6 +30,10 @@ export class BookService {
     try {
       const book = await this.bookModel.findById(id);
 
+      if (!book) {
+        throw new BadRequestException('Invalid book ID');
+      }
+
       return book;
     } catch (error) {
       console.log('Error: getBookById: ', error);
@@ -44,6 +48,26 @@ export class BookService {
     } catch (error) {
       console.log('Error: create: ', error);
       throw new BadRequestException('An error occurred when registering books');
+    }
+  }
+
+  async updateBookById(id: string, book: Book): Promise<Book> {
+    try {
+      const updatedBook = await this.bookModel.findByIdAndUpdate(id, book, {
+        new: true,
+        runValidators: true,
+      });
+
+      if (!updatedBook) {
+        throw new BadRequestException('Invalid Book ID');
+      }
+
+      return updatedBook;
+    } catch (error) {
+      console.log('Error: updateBookById: ', error);
+      if (error.name === 'CastError') {
+        throw new NotFoundException('Book not found');
+      }
     }
   }
 }

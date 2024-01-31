@@ -35,12 +35,22 @@ export class BookController {
   }
 
   @Patch(':id')
-  async updatePartial(
-    @Body() { image, isbn, title, category, price }: UpdateBookDTO,
-    @Param('id', ParseIntPipe) id: number,
-  ) {
-    return { isbn, image, title, category, price, id };
+  async updateBook(
+    @Param('id')
+    id: string,
+    @Body()
+    book: UpdateBookDTO,
+  ): Promise<Book> {
+    return this.bookService.updateBookById(id, book);
   }
+
+  // para fins de estudo
+  // async updatePartial(
+  //   @Body() { image, isbn, title, category, price }: UpdateBookDTO,
+  //   @Param('id', ParseIntPipe) id: number,
+  // ) {
+  //   return { isbn, image, title, category, price, id };
+  // }
 
   @Delete(':id')
   async deleteBook(@Param('id', ParseIntPipe) id: number) {
