@@ -1,6 +1,10 @@
 import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Book } from './schemas/book.schema';
 
 @Injectable()
@@ -11,22 +15,35 @@ export class BookService {
   ) {}
 
   async getAllBooks(): Promise<Book[]> {
-    const books = await this.bookModel.find();
-    return books;
+    try {
+      const books = await this.bookModel.find();
+      return books;
+    } catch (error) {
+      console.log('Error: getAllBooks: ', error);
+      throw new BadRequestException(
+        'An error occurred when searching for books',
+      );
+    }
   }
 
   async getBookById(id: string): Promise<Book> {
-    const book = await this.bookModel.findById(id);
+    try {
+      const book = await this.bookModel.findById(id);
 
-    if (!book) {
+      return book;
+    } catch (error) {
+      console.log('Error: getBookById: ', error);
       throw new NotFoundException('Book not found');
     }
-
-    return book;
   }
 
   async create(book: Book): Promise<Book> {
-    const response = await this.bookModel.create(book);
-    return response;
+    try {
+      const response = await this.bookModel.create(book);
+      return response;
+    } catch (error) {
+      console.log('Error: create: ', error);
+      throw new BadRequestException('An error occurred when registering books');
+    }
   }
 }
