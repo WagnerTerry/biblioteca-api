@@ -1,4 +1,4 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import { Category } from '../schemas/book.schema';
 
 export class CreateBookDTO {
@@ -17,5 +17,6 @@ export class CreateBookDTO {
   price: number;
 
   @IsString()
+  @IsEnum(Category, { message: 'Invalid category' })
   category: Category;
 }

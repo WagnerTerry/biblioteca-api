@@ -57,6 +57,7 @@ export class BookService {
         new: true,
         runValidators: true,
       });
+      console.log('id', id, book);
 
       if (!updatedBook) {
         throw new BadRequestException('Invalid Book ID');

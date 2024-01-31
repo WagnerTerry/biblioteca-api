@@ -56,4 +56,12 @@ export class BookController {
   async deleteBook(@Param('id', ParseIntPipe) id: number) {
     return { id };
   }
+
+  // @Delete(':id')
+  // async deleteBook(
+  //   @Param('id')
+  //   id: string,
+  // ): Promise<Book> {
+  //   return this.bookService.deleteById(id);
+  // }
 }
