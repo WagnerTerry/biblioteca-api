@@ -18,12 +18,12 @@ export class BookController {
 
   @Get()
   async getAllBooks(): Promise<Book[]> {
-    return this.bookService.findAll();
+    return this.bookService.getAllBooks();
   }
 
   @Get(':id')
-  async findOneBook(@Param() params) {
-    return { book: {}, params };
+  async getBook(@Param('id') id: string): Promise<Book> {
+    return this.bookService.getBookById(id);
   }
 
   @Post()
