@@ -57,7 +57,6 @@ export class BookService {
         new: true,
         runValidators: true,
       });
-      console.log('id', id, book);
 
       if (!updatedBook) {
         throw new BadRequestException('Invalid Book ID');
@@ -69,6 +68,16 @@ export class BookService {
       if (error.name === 'CastError') {
         throw new NotFoundException('Book not found');
       }
+    }
+  }
+
+  async delete(id: string): Promise<{ message: string }> {
+    const deletedBook = await this.bookModel.findByIdAndDelete(id);
+
+    if (deletedBook) {
+      return { message: 'book deleted successfully' };
+    } else {
+      throw new NotFoundException('book not found');
     }
   }
 }

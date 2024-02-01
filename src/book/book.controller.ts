@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   Param,
-  ParseIntPipe,
   Patch,
   Post,
 } from '@nestjs/common';
@@ -52,16 +51,17 @@ export class BookController {
   //   return { isbn, image, title, category, price, id };
   // }
 
-  @Delete(':id')
-  async deleteBook(@Param('id', ParseIntPipe) id: number) {
-    return { id };
-  }
-
+  // para fins de estudo
   // @Delete(':id')
-  // async deleteBook(
-  //   @Param('id')
-  //   id: string,
-  // ): Promise<Book> {
-  //   return this.bookService.deleteById(id);
+  // async deleteBook(@Param('id', ParseIntPipe) id: number) {
+  //   return { id };
   // }
+
+  @Delete(':id')
+  async deleteBook(
+    @Param('id')
+    id: string,
+  ): Promise<{ message: string }> {
+    return this.bookService.delete(id);
+  }
 }
