@@ -7,6 +7,7 @@ async function bootstrap() {
     if (process.env.DB_DEV === 'dev') {
       const app = await NestFactory.create(AppModule);
 
+      // Aplicando Validação globalmente
       app.useGlobalPipes(new ValidationPipe());
 
       await app.listen(3000);
