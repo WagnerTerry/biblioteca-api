@@ -1,6 +1,8 @@
 import {
   BadRequestException,
   ConflictException,
+  HttpException,
+  HttpStatus,
   Injectable,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -41,8 +43,15 @@ export class UserService {
       const response = await this.userModel.create(user);
       return response;
     } catch (error) {
-      console.log('Error create: ', error);
-      throw new BadRequestException('An error occurred when registering users');
+      if (error instanceof ConflictException) {
+        // Lidar com ConflictException e retornar um código de status de conflito 409
+        throw new HttpException(error.message, HttpStatus.CONFLICT);
+      } else {
+        console.log('Error create: ', error);
+        throw new BadRequestException(
+          'An error occurred when registering users',
+        );
+      }
     }
   }
 }
