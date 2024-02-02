@@ -23,8 +23,8 @@ export class UserController {
   }
 
   @Post()
-  async createUser(@Body() { email, name, password }: CreateUserDTO) {
-    return { email, name, password };
+  async createUser(@Body() user: CreateUserDTO): Promise<User> {
+    return this.userService.create(user);
   }
 
   @Patch(':id')

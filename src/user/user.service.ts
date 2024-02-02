@@ -21,4 +21,14 @@ export class UserService {
       );
     }
   }
+
+  async create(user: User): Promise<User> {
+    try {
+      const response = await this.userModel.create(user);
+      return response;
+    } catch (error) {
+      console.log('Error create: ', error);
+      throw new BadRequestException('An error occurred when registering users');
+    }
+  }
 }
