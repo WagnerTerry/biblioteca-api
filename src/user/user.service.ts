@@ -70,4 +70,13 @@ export class UserService {
       }
     }
   }
+
+  async delete(id: string): Promise<{ message: string }> {
+    const deletedUser = await this.userModel.findByIdAndDelete(id);
+    if (deletedUser) {
+      return { message: 'user deleted successfully' };
+    } else {
+      throw new NotFoundException('user not found');
+    }
+  }
 }

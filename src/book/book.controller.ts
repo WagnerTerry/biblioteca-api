@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  // ParseIntPipe -> Converter string em int, por exemplo
 } from '@nestjs/common';
 import { CreateBookDTO } from './dto/create-book.dto';
 import { UpdateBookDTO } from './dto/update-book.dto';
