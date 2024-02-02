@@ -29,10 +29,12 @@ export class UserController {
 
   @Patch(':id')
   async updateUser(
-    @Body() { email, name, password }: UpdateUserDTO,
-    @Param('id', ParseIntPipe) id: number,
-  ) {
-    return { email, name, password, id };
+    @Param('id')
+    id: string,
+    @Body()
+    user: UpdateUserDTO,
+  ): Promise<User> {
+    return this.userService.update(id, user);
   }
 
   @Delete(':id')

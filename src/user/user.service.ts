@@ -4,6 +4,7 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schemas/user.schema';
@@ -51,6 +52,21 @@ export class UserService {
         throw new BadRequestException(
           'An error occurred when registering users',
         );
+      }
+    }
+  }
+
+  async update(id: string, user: User): Promise<User> {
+    try {
+      const updatedUser = await this.userModel.findByIdAndUpdate(id, user, {
+        new: true,
+        runValidators: true,
+      });
+      return updatedUser;
+    } catch (error) {
+      console.log('Error: update: ', error);
+      if (error.name === 'CastError') {
+        throw new NotFoundException('User not found');
       }
     }
   }
